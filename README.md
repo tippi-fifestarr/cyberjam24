@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# Cyberjam 2024 🚀  
+A One-of-a-Kind Collaborative Hackathon
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Cyberjam Banner](public/CJBannr_1.png)
 
-## Available Scripts
+## Overview
+
+**Cyberjam 2024** is a unique hackathon experience designed to foster **multidisciplinary collaboration** among artists, developers, musicians, and technologists. Teams of 5 will come together to create immersive **2D & 3D physical + digital (phygital)** experiences across five thematic tracks:
+
+- **Governance 🏫**
+- **Fashion 💃**
+- **Security & Privacy 🔒**
+- **Sports + Gaming 🎮**
+- **AI 🤖**
+
+Cyberjam will take place **October 19th - October 27th** at **Chicago 1871**, culminating in an unforgettable **Closing Ceremony & Showcase**. Participants will push the boundaries of innovation, collaborating on projects that combine art, technology, and real-world applications.
+
+---
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Scripts](#scripts)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Getting Started
+
+Follow these instructions to get a copy of the project running on your local machine.
+
+### Prerequisites
+
+Ensure you have the following installed:
+- **Node.js** (v14 or higher)
+- **npm** (v6 or higher)
+- **Git**
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-github-username/cyberjam.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd cyberjam
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+This will open the project in your default browser at `http://localhost:3000`.
+
+---
+
+## Tech Stack
+
+- **React.js**: Frontend framework for building interactive UI components.
+- **TailwindCSS**: Utility-first CSS framework for styling.
+- **gh-pages**: To deploy the app to GitHub Pages.
+
+---
+
+## Project Structure
+
+The project follows a simple structure:
+
+```
+cyberjam/
+│
+├── src/
+│   ├── App.js            # Main React component
+│   ├── index.js          # React entry point
+│   └── components/       # Additional components (navbar, sections, etc.)
+│
+├── public/
+│   └── index.html        # Main HTML file
+│
+├── tailwind.config.js     # TailwindCSS configuration
+├── package.json           # Project dependencies and scripts
+└── README.md              # Project documentation
+```
+
+### Main Sections
+
+- **Navbar**: Sticky navigation that smooth-scrolls to the different sections of the page.
+- **Home**: Introduction to Cyberjam 2024.
+- **About**: Details about the hackathon, including themes and objectives.
+- **Sponsors**: Highlight of sponsor benefits and opportunities.
+- **Register**: Call to action for participants to register.
+
+---
+
+## Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+- **`npm start`**: Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **`npm run build`**: Builds the app for production to the `build/` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+- **`npm run deploy`**: Deploys the app to GitHub Pages. Ensure the `homepage` in `package.json` is correctly set up.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Deployment
 
-### `npm test`
+This project is deployed using **GitHub Pages**. To deploy your own version:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Ensure your `package.json` has the correct `homepage` field set:
 
-### `npm run build`
+   ```json
+   "homepage": "https://your-github-username.github.io/cyberjam/"
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Run the deployment script:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm run deploy
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. The site will be available at `https://your-github-username.github.io/cyberjam/`.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Contributing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We welcome contributions from developers and designers passionate about shaping the future of immersive hackathons! Here’s how you can contribute:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Code Style
 
-## Learn More
+We follow best practices in React and TailwindCSS. Make sure to lint your code before submitting.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
 
-### Code Splitting
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+### Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For any queries or collaboration opportunities, email us at cyberjam.art@gmail.com!
