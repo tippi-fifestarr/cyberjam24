@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cyberjam/static/css/main.c11417a3.css",
+    "main.js": "/cyberjam/static/js/main.c16978bb.js",
+    "static/js/453.50a1ea73.chunk.js": "/cyberjam/static/js/453.50a1ea73.chunk.js",
+    "index.html": "/cyberjam/index.html",
+    "main.c11417a3.css.map": "/cyberjam/static/css/main.c11417a3.css.map",
+    "main.c16978bb.js.map": "/cyberjam/static/js/main.c16978bb.js.map",
+    "453.50a1ea73.chunk.js.map": "/cyberjam/static/js/453.50a1ea73.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c11417a3.css",
+    "static/js/main.c16978bb.js"
+  ]
+}
