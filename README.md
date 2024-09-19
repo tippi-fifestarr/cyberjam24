@@ -162,4 +162,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Contact
 
-For any queries or collaboration opportunities, email us at cyberjam.art@gmail.com!
+For any queries or collaboration opportunities, check out our [sponsor deck](https://drive.google.com/file/d/11_AF3JkFl6CpIwhPNU2s2Znp-fc7IbmX/view?usp=sharing) and email us at cyberjam.art@gmail.com!
