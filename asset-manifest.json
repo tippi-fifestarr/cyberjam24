@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/cyberjam24/static/css/main.9ecc93aa.css",
-    "main.js": "/cyberjam24/static/js/main.9eba3d3c.js",
+    "main.js": "/cyberjam24/static/js/main.b48077a6.js",
     "static/js/453.50a1ea73.chunk.js": "/cyberjam24/static/js/453.50a1ea73.chunk.js",
     "static/media/CJBannr_3.png": "/cyberjam24/static/media/CJBannr_3.262de2ac1b374a24d7a7.png",
     "static/media/Cyberjam_tilted2.png": "/cyberjam24/static/media/Cyberjam_tilted2.b3bc4b4f0c342cb7c80a.png",
     "index.html": "/cyberjam24/index.html",
     "main.9ecc93aa.css.map": "/cyberjam24/static/css/main.9ecc93aa.css.map",
-    "main.9eba3d3c.js.map": "/cyberjam24/static/js/main.9eba3d3c.js.map",
+    "main.b48077a6.js.map": "/cyberjam24/static/js/main.b48077a6.js.map",
     "453.50a1ea73.chunk.js.map": "/cyberjam24/static/js/453.50a1ea73.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9ecc93aa.css",
-    "static/js/main.9eba3d3c.js"
+    "static/js/main.b48077a6.js"
   ]
 }
