@@ -1,6 +1,7 @@
 import React from "react";
 import './App.css';
 import cyberjam_logo from './Cyberjam_tilted2.png';
+import registerBanner from './CJBannr_3.png';
 
 const App = () => {
   return (
@@ -61,9 +62,40 @@ const Register = () => {
   return (
     <section id="register" className="min-h-screen bg-blue-900 text-white flex items-center justify-center py-16">
       <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-6">Register Now</h2>
-        <p className="text-lg">Join us in shaping the future of immersive experiences. Secure your spot now and be a part of Cyberjam 2024.</p>
-        <a href="/registration-form" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">Register</a>
+        <h2 className="text-4xl font-bold mb-6">Register for Cyberjam 2024</h2>
+        <p className="text-lg mb-8">
+          Cyberjam is not your typical hackathon. Our teams are made up of artists, technologists, and wildcards from various fields, coming together to build innovative "phygital" experiences. Are you ready to join the future of creativity and technology?
+        </p>
+        <a href="https://forms.gle/xCEp1JVBSPCwhGJu7" target="_blank" rel="noopener noreferrer" className="block mb-8">
+          <img src={registerBanner} alt="Register for Cyberjam 2024" className="w-full max-w-2xl mx-auto" />
+        </a>
+        <h3 className="text-3xl font-semibold mb-4">How Cyberjam Works</h3>
+        <p className="text-lg mb-4">
+          Cyberjam 2024 focuses on bringing together multidisciplinary teams to create immersive "phygital" (physical + digital) experiences. Here’s what you can expect:
+        </p>
+        
+        <h3 className="text-3xl font-semibold mb-4">Multidisciplinary Teams and Roles</h3>
+        <p className="text-lg mb-4">We aim to bridge the gap between creatives and technologists. Our teams consist of diverse roles working together on phygital collaborations. Which role do you identify with?</p>
+        <ul className="list-disc text-left mb-8">
+          <li><strong>Visual Artist:</strong> You create or tell stories through visuals.</li>
+          <li><strong>Sound Artist:</strong> You have a passion for sound, music, or composing.</li>
+          <li><strong>Software Developer:</strong> You build applications or integrate software into systems.</li>
+          <li><strong>Hardware Developer:</strong> You work with physical components and connect them with digital systems.</li>
+          <li><strong>Wildcard:</strong> You bring unique skills outside traditional roles, such as marketing or project management.</li>
+        </ul>
+        <p className="text-lg mb-8">Together, these multidisciplinary teams work beyond the digital realm to create installations that merge physical and digital worlds, fostering continued collaboration and community engagement.</p>
+
+        <a href="https://forms.gle/xCEp1JVBSPCwhGJu7" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">
+          Jammer Waitlist Registration
+        </a>
+        <p className="text-sm m-4">
+          Not sure which role fits you best? You’ll have the chance to select your avatar and define your strengths after completing registration.
+        </p>
+
+
+        <p className="text-lg mt-8"> 
+          <a href="https://forms.gle/xCEp1JVBSPCwhGJu7" target="_blank" rel="noopener noreferrer" className="underline">Sign up for the waitlist</a> and we'll be in contact soon with next steps!
+        </p>
       </div>
     </section>
   );
