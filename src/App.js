@@ -52,7 +52,7 @@ const Sponsors = () => {
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-6">Sponsor us!</h2>
         <p className="text-lg">Become a sponsor and join us in creating one-of-a-kind experiences. Tailor your sponsorship to our themes and be part of the future of phygital experiences.</p>
-        <a href="/sponsor-deck" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">Download Sponsor Deck</a>
+        <a href="https://drive.google.com/file/d/1Eaq_JAz6uCjoxqtuINwYU9paRolg94XM/view?usp=sharing" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">Check out our Sponsor Deck</a>
       </div>
     </section>
   );
