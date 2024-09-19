@@ -52,7 +52,7 @@ const Sponsors = () => {
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-6">Sponsor us!</h2>
         <p className="text-lg">Become a sponsor and join us in creating one-of-a-kind experiences. Tailor your sponsorship to our themes and be part of the future of phygital experiences.</p>
-        <a href="https://drive.google.com/file/d/1Eaq_JAz6uCjoxqtuINwYU9paRolg94XM/view?usp=sharing" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">Check out our Sponsor Deck</a>
+        <a href="https://drive.google.com/file/d/11_AF3JkFl6CpIwhPNU2s2Znp-fc7IbmX/view?usp=sharing" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">Check out our Sponsor Deck</a>
       </div>
     </section>
   );
@@ -89,7 +89,7 @@ const Register = () => {
           Jammer Waitlist Registration
         </a>
         <p className="text-sm m-4">
-          Not sure which role fits you best? You’ll have the chance to select your avatar and define your strengths after completing registration.
+          Not sure which role fits you best? You will have the chance to select your avatar and define your strengths after completing registration.
         </p>
 
 
