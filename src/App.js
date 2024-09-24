@@ -40,7 +40,7 @@ const Home = () => {
         <h1 className="text-5xl font-bold mb-6">Welcome to Cyberjam 2024</h1>
         <p className="text-xl mb-8">A one-of-a-kind collaborative hackathon pushing the boundaries of what's possible with phygital experiences.</p>
         <h2 className="text-3xl font-semibold mb-4">About Cyberjam</h2>
-        <p className="text-lg mb-8">Cyberjam 2024 is an immersive hackathon taking place from October 19th to October 27th at <a href="https://1871.com/" target="_blank" rel="noopener noreferrer" className="underline">Chicago's global innovation, 1871</a>. Teams of 5 will work together on phygital experiences combining art, technology, and innovation across five thematic tracks:</p>
+        <p className="text-lg mb-8">Cyberjam 2024 is an immersive hackathon taking place from October 19th to October 27th at <a href="https://1871.com/" target="_blank" rel="noopener noreferrer" className="underline">Chicago's global innovation hub, 1871</a>. Teams of 5 will work together on phygital experiences combining art, technology, and innovation across five thematic tracks:</p>
         <ul className="list-disc list-inside mb-8">
           <li>AI</li>
           <li>Fashion</li>
