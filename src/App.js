@@ -18,9 +18,9 @@ const App = () => {
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 bg-gray-900 text-white py-4">
+    <nav className="sticky top-0 bg-gray-900 text-white py-1">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="#home" className="flex items-center justify-center w-20 h-20 rounded-full">
+        <a href="#home" className="flex items-center justify-center md:w-20 w-16 md:h-20 h-16 rounded-full">
           <img src={cyberjam_logo} alt="Cyberjam" className="w-full h-full object-cover" />
         </a>
         <div>
@@ -91,16 +91,13 @@ const Register = () => {
           <li><strong>Hardware Developer:</strong> You work with physical components and connect them with digital systems.</li>
           <li><strong>Wildcard:</strong> You bring unique skills outside traditional 'hackathon' roles, such as marketing or project management.</li>
         </ul>
-        <p className="text-lg mb-8">Together, these multidisciplinary teams work beyond the digital realm to create installations that merge physical and digital worlds, fostering continued collaboration and community engagement.</p>
-
         <a href="https://forms.gle/xCEp1JVBSPCwhGJu7" target="_blank" rel="noopener noreferrer" className="mt-6 inline-block bg-pink-600 py-2 px-4 text-white rounded">
           Jammer Waitlist Registration
         </a>
         <p className="text-sm m-4">
           Not sure which role fits you best? You will have the chance to select your avatar and define your strengths after completing registration.
         </p>
-
-
+        <p className="text-lg mb-8">Together, these multidisciplinary teams work beyond the digital realm to create installations that merge physical and digital worlds, fostering continued collaboration and community engagement.</p>
         <p className="text-lg mt-8"> 
           <a href="https://forms.gle/xCEp1JVBSPCwhGJu7" target="_blank" rel="noopener noreferrer" className="underline">Sign up for the waitlist</a> and we'll be in contact soon with next steps!
         </p>
