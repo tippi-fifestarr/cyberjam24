@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/cyberjam24/static/css/main.46d12a75.css",
-    "main.js": "/cyberjam24/static/js/main.e3fdcf13.js",
+    "main.css": "/cyberjam24/static/css/main.8890a0d4.css",
+    "main.js": "/cyberjam24/static/js/main.c9f4e5e4.js",
     "static/js/453.50a1ea73.chunk.js": "/cyberjam24/static/js/453.50a1ea73.chunk.js",
     "static/media/Sponsors23.png": "/cyberjam24/static/media/Sponsors23.bef3b71c86619c683eb9.png",
     "static/media/CJBannr_3.png": "/cyberjam24/static/media/CJBannr_3.262de2ac1b374a24d7a7.png",
     "static/media/Cyberjam_tilted2.png": "/cyberjam24/static/media/Cyberjam_tilted2.b3bc4b4f0c342cb7c80a.png",
     "index.html": "/cyberjam24/index.html",
-    "main.46d12a75.css.map": "/cyberjam24/static/css/main.46d12a75.css.map",
-    "main.e3fdcf13.js.map": "/cyberjam24/static/js/main.e3fdcf13.js.map",
+    "main.8890a0d4.css.map": "/cyberjam24/static/css/main.8890a0d4.css.map",
+    "main.c9f4e5e4.js.map": "/cyberjam24/static/js/main.c9f4e5e4.js.map",
     "453.50a1ea73.chunk.js.map": "/cyberjam24/static/js/453.50a1ea73.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.46d12a75.css",
-    "static/js/main.e3fdcf13.js"
+    "static/css/main.8890a0d4.css",
+    "static/js/main.c9f4e5e4.js"
   ]
 }
