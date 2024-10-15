@@ -473,18 +473,38 @@ const Register = () => {
 };
 
 const Cyberjam2023 = () => {
-  return (
-    <section id="2023cyberjam" className="min-h-screen bg-gray-100 text-gray-900 flex items-center justify-center py-16">
-      <div className="container mx-auto text-center">
-        <h2 className="text-4xl font-bold mb-6 text-pink-600">2023: &lt;imnotHackathon&gt; BETA (alpha)</h2>
-        <img src={sponsors23} alt="Cyberjam 2023 Sponsors" className="w-full max-w-4xl mx-auto my-8" />
-        <p className="text-lg">Check out the highlights from Cyberjam 2023!</p>
-        <div className="flex justify-center items-center mt-6">
-          <iframe width="939" height="528" src="https://www.youtube.com/embed/Qu6LKDAfDZI" title="ETHChicago presents the 2023 CyberJam" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    return (
+      <section id="2023cyberjam" className="min-h-screen bg-gray-100 text-gray-900 flex items-center justify-center py-16">
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6 text-pink-600">2023: &lt;imnotHackathon&gt; BETA (alpha)</h2>
+          <img src={sponsors23} alt="Cyberjam 2023 Sponsors" className="w-full max-w-4xl mx-auto my-8" />
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg mb-4">
+              In 2023, we launched our first Cyberjam event, known as the &lt;imnotHackathon&gt; BETA (alpha). This groundbreaking event brought together a diverse group of creators, technologists, and innovators to explore the intersection of art and technology.
+            </p>
+            <p className="text-lg mb-4">
+              Key highlights of the imnothackathon included:
+            </p>
+            <ul className="list-disc list-inside mb-4 text-left">
+              <li>Multidisciplinary teams collaborating on innovative projects</li>
+              <li>Immersive experiences blending physical and digital elements</li>
+              <li>Workshops and mentorship from industry experts</li>
+              <li>A showcase of cutting-edge "phygital" prototypes</li>
+            </ul>
+            <p className="text-lg mb-6">
+              The event's success laid the foundation for Cyberjam 2024, setting a new standard for collaborative hackathons in the Chicago tech and art scene.
+            </p>
+          </div>
+          <p className="text-xl font-semibold mb-4">Check out the highlights from Cyberjam 2023!</p>
+          <div className="flex justify-center items-center mt-6 mb-4">
+            <iframe width="939" height="528" src="https://www.youtube.com/embed/Qu6LKDAfDZI" title="ETHChicago presents the 2023 CyberJam" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+          </div>
+          <p className="text-lg mt-4">
+            Special thanks to <a href="https://x.com/WillCreatesArt" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline font-semibold">@WillCreatesArt</a> for filming and editing this amazing recap video, capturing the essence of our inaugural event!
+          </p>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }
 
 export default App;
