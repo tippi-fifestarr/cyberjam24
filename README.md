@@ -163,3 +163,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Contact
 
 For any queries or collaboration opportunities, check out our [sponsor deck](https://drive.google.com/file/d/11_AF3JkFl6CpIwhPNU2s2Znp-fc7IbmX/view?usp=sharing) and email us at cyberjam.art@gmail.com!
+
+## Using Slither to analyze contracts
+
+1. Create a python virtual environment
+```shell
+python3 -m venv venv
+```
+
+2. Activate the virtual environment
+```shell
+source venv/bin/activate
+```
+
+3. Install slither
+```shell
+pip install slither-analyzer
+```
+
+4. Analyze a contract:
+
+Slither supports running against entire hardhat projects:
+```shell
+slither .
+
