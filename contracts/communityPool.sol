@@ -27,7 +27,7 @@ contract CommunityPrizePool is ERC721, Ownable {
     event PrizeClaimed(address team, uint256 amount);
     event TeamAdded(address team);
 
-    constructor(address _priceFeedAddress) ERC721("CommunityPoolContributor", "CPC") Ownable(msg.sender) {
+    constructor(address _priceFeedAddress, address initialOwner) ERC721("CommunityPoolContributor", "CPC") Ownable(initialOwner) {
         ethUsdPriceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
 
