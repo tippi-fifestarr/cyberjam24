@@ -4,33 +4,30 @@
 // stretch 3: allow tippi to input final community votes from offchain voting, and all contributors to distribute 5 votes to their favorite teams
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.7;
+pragma solidity 0.8.26;
 
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 /**
  * @title CommunityPrizePool
  * @dev A contract for fundraising a community prize pool for Jammer teams
  */
 contract CommunityPrizePool is ERC721, Ownable {
-    using Counters for Counters.Counter;
-
     AggregatorV3Interface private ethUsdPriceFeed;
     uint256 public constant MINIMUM_CONTRIBUTION = 500 * 10**18; // 500 USD in wei
     uint256 public constant TIPPI_CONTRIBUTION = 250 * 10**18; // 250 USD in wei
     uint256 public prizePool;
     mapping(address => bool) public eligibleTeams;
     mapping(address => bool) public hasClaimedPrize;
-    Counters.Counter private _tokenIds;
+    uint256 private _nextTokenId;
 
     event ContributionMade(address contributor, uint256 amount);
     event PrizeClaimed(address team, uint256 amount);
     event TeamAdded(address team);
 
-    constructor(address _priceFeedAddress) ERC721("CommunityPoolContributor", "CPC") {
+    constructor(address _priceFeedAddress) ERC721("CommunityPoolContributor", "CPC") Ownable(msg.sender) {
         ethUsdPriceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
 
@@ -98,8 +95,7 @@ contract CommunityPrizePool is ERC721, Ownable {
     }
 
     function _mintNFT(address recipient) private {
-        _tokenIds.increment();
-        uint256 newTokenId = _tokenIds.current();
+        uint256 newTokenId = _nextTokenId++;
         _safeMint(recipient, newTokenId);
     }
 
