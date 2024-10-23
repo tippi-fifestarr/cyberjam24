@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity 0.8.26;
 
 /**
  * @title Cyberjam 2024 Community Prize Pool and NFT Contracts
@@ -24,19 +24,17 @@ pragma solidity 0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
  * @title CyberjamNFT
  * @dev This contract manages the NFTs given to contributors of the Cyberjam 2024 event.
  */
 contract CyberjamNFT is ERC721URIStorage, Ownable {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    uint256 private _nextTokenId;
 
     address public communityPoolAddress;
 
@@ -65,8 +63,7 @@ contract CyberjamNFT is ERC721URIStorage, Ownable {
      */
     function mintNFT(address recipient, string memory tokenURI) external returns (uint256) {
         require(msg.sender == communityPoolAddress, "Only Community Pool can mint");
-        _tokenIds.increment();
-        uint256 newTokenId = _tokenIds.current();
+        uint256 newTokenId = _nextTokenId++;
         _mint(recipient, newTokenId);
         _setTokenURI(newTokenId, tokenURI);
         emit NFTMinted(recipient, newTokenId, tokenURI);
