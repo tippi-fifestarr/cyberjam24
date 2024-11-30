@@ -19,14 +19,19 @@ ENC_B = Pin(20, Pin.IN, Pin.PULL_UP)
 
 # OLED Buttons
 KEY_A = Pin(15, Pin.IN, Pin.PULL_UP)    # Left button
-KEY_B = Pin(17, Pin.IN, Pin.PULL_UP)    # Right button
+KEY_B = Pin(16, Pin.IN, Pin.PULL_UP)    # Right button
 
 # System Modes
 MODE_WAITING = "WAITING_FOR_RFID"
-MODE_SELECT = "SELECT_VOTER"
+MODE_JUDGE_MENU = "JUDGE_MENU"
+MODE_CATEGORY_SELECT = "CATEGORY_SELECT"
 MODE_VOTING = "VOTING"
+MODE_CONFIRM_SUBMIT = "CONFIRM_SUBMIT"
 MODE_RESULTS = "RESULTS"
 MODE_THANK_YOU = "THANK_YOU"
+
+# Add special category for final submission
+SUBMIT_OPTION = "SUBMIT VOTES"
 
 # Voting System Constants
 TEAMS = ["TabDuel", "VibeBox", "Harmony Hub", "Duncan Box"]
@@ -181,13 +186,13 @@ class OLED_1inch3(framebuf.FrameBuffer):
 class VotingSystem:
     def __init__(self):
         self.oled = OLED_1inch3()
-        self.rfid = RDM6300()  # New RFID reader
-        self.mode = MODE_WAITING  # Start in RFID waiting mode
-        self.current_category = 0
+        self.rfid = RDM6300()
+        self.mode = MODE_WAITING
+        self.selected_category = 0  # For category selection menu
         self.selected_team = 0
-        self.voter_id = 1
-        self.max_voters = 50
+        self.current_judge_id = None
         self.needs_refresh = True
+        self.temp_votes = {}  # Store temporary votes until submission
         
         # Load or initialize voting data
         try:
@@ -197,47 +202,81 @@ class VotingSystem:
             self.votes = {category: {} for category in CATEGORIES}
             
         try:
-            with open('voters.json', 'r') as f:
-                self.voters = json.load(f)
+            with open('completed_judges.json', 'r') as f:
+                self.completed_judges = json.load(f)
         except:
-            self.voters = []
+            self.completed_judges = []
+            
+        try:
+            with open('in_progress_votes.json', 'r') as f:
+                self.in_progress_votes = json.load(f)
+        except:
+            self.in_progress_votes = {}
 
     def save_data(self):
-        """Save voting data to files"""
+        """Save all voting data to files"""
         with open('votes.json', 'w') as f:
             json.dump(self.votes, f)
-        with open('voters.json', 'w') as f:
-            json.dump(self.voters, f)
+        with open('completed_judges.json', 'w') as f:
+            json.dump(self.completed_judges, f)
+        with open('in_progress_votes.json', 'w') as f:
+            json.dump(self.in_progress_votes, f)
 
     def display_waiting_rfid(self):
-        """Display RFID waiting screen"""
+        """Display initial screen"""
         self.oled.fill(0)
-        self.oled.text("Tap your fob", 20, 20, 1)
-        self.oled.text("to start voting", 10, 35, 1)
+        self.oled.text("Cyberjam Round II", 5, 10, 1)
+        self.oled.text("Tap PS1 key fob", 10, 35, 1)
         self.oled.show()
 
-    def display_voter_selection(self):
-        """Display voter ID selection screen"""
+    def display_judge_menu(self):
+        """Display judge menu screen"""
         self.oled.fill(0)
-        self.oled.text("PS1 Member ID:", 0, 0, 1)
-        self.oled.text(f"ID: {self.voter_id}", 0, 20, 1)
+        self.oled.text("Judge ID:", 0, 0, 1)
+        self.oled.text(str(self.current_judge_id), 0, 15, 1)
         
-        if self.voter_id in self.voters:
-            self.oled.text("Already voted!", 0, 40, 1)
-            self.oled.text("B: View Results", 0, 50, 1)
+        if self.current_judge_id in self.completed_judges:
+            self.oled.text("Already submitted!", 0, 30, 1)
+            self.oled.text("B: View Results", 0, 45, 1)
         else:
-            self.oled.text("A: Start Vote", 0, 40, 1)
-            if any(self.voters):  # Only show results option if votes exist
-                self.oled.text("B: Results", 0, 50, 1)
+            self.oled.text("A: Start/Continue", 0, 30, 1)
+            self.oled.text("B: Exit", 0, 45, 1)
+        self.oled.show()
+
+    def display_category_select(self):
+        """Display category selection menu"""
+        self.oled.fill(0)
+        self.oled.text("Select Category:", 0, 0, 1)
         
+        # Get current selection (category or submit option)
+        if self.selected_category < len(CATEGORIES):
+            current = CATEGORIES[self.selected_category]
+        else:
+            current = SUBMIT_OPTION
+        
+        # Show current selection
+        self.oled.text(">", 0, 20, 1)
+        if len(current) > 16:
+            self.oled.text(current[:16], 10, 20, 1)
+            self.oled.text(current[16:], 10, 30, 1)
+        else:
+            self.oled.text(current, 10, 20, 1)
+        
+        # Show if category has been voted
+        if current != SUBMIT_OPTION:
+            voted = self.temp_votes.get(current, None)
+            if voted:
+                self.oled.text(f"Voted: {voted}", 10, 40, 1)
+        
+        self.oled.text("A:Select B:Back", 0, 55, 1)
         self.oled.show()
 
     def display_voting_screen(self):
-        """Display category voting interface"""
+        """Display team voting interface"""
         self.oled.fill(0)
-        category = CATEGORIES[self.current_category]
+        category = CATEGORIES[self.selected_category]
         
-        # Display category name (split if needed)
+        # Display category name
         if len(category) > 16:
             words = category.split()
             line1 = words[0]
@@ -251,14 +290,83 @@ class VotingSystem:
         self.oled.text("Select Winner:", 0, 25, 1)
         self.oled.text(TEAMS[self.selected_team], 0, 35, 1)
         
-        # Display controls
         self.oled.text("A:Select  B:Back", 0, 55, 1)
         self.oled.show()
+
+    def display_confirm_submit(self):
+        """Display submission confirmation screen"""
+        self.oled.fill(0)
+        self.oled.text("Submit Votes?", 15, 10, 1)
+        self.oled.text("A: Confirm", 5, 30, 1)
+        self.oled.text("B: Go Back", 5, 45, 1)
+        self.oled.show()
+
+    def submit_votes(self):
+        """Submit all votes and mark judge as completed"""
+        # Transfer temporary votes to permanent storage
+        for category, team in self.temp_votes.items():
+            if category not in self.votes:
+                self.votes[category] = {}
+            self.votes[category][team] = self.votes[category].get(team, 0) + 1
+        
+        # Mark judge as completed and clear temporary votes
+        self.completed_judges.append(self.current_judge_id)
+        if self.current_judge_id in self.in_progress_votes:
+            del self.in_progress_votes[self.current_judge_id]
+        self.temp_votes = {}
+        self.save_data()
+        
+    def get_missing_categories(self):
+        """Return list of categories that haven't been voted on yet"""
+        missing = []
+        for category in CATEGORIES:
+            if category not in self.temp_votes:
+                missing.append(category)
+        return missing
+
+    def display_missing_categories(self):
+        """Show warning about missing category votes"""
+        missing = self.get_missing_categories()
+        if not missing:
+            return False
+            
+        self.oled.fill(0)
+        self.oled.text("Missing votes:", 0, 0, 1)
+        
+        # Display missing categories
+        y = 15
+        for category in missing[:4]:  # Show up to 4 categories
+            if len(category) > 16:
+                self.oled.text(category[:16], 0, y, 1)
+                y += 10
+                self.oled.text(category[16:], 0, y, 1)
+            else:
+                self.oled.text(category, 0, y, 1)
+            y += 10
+            
+        if len(missing) > 4:
+            self.oled.text("...and more", 0, y, 1)
+        
+        self.oled.text("B: Back", 0, 55, 1)
+        self.oled.show()
+        return True
+
+    def load_in_progress_votes(self):
+        """Load any in-progress votes for the current judge"""
+        if self.current_judge_id in self.in_progress_votes:
+            self.temp_votes = self.in_progress_votes[self.current_judge_id]
+        else:
+            self.temp_votes = {}
+
+    def save_in_progress_votes(self):
+        """Save current voting progress"""
+        self.in_progress_votes[self.current_judge_id] = self.temp_votes
+        self.save_data()
 
     def display_results(self):
         """Display voting results"""
         self.oled.fill(0)
-        category = CATEGORIES[self.current_category]
+        category = CATEGORIES[self.selected_category]  # Changed from current_category
         
         # Show category name
         if len(category) > 16:
@@ -314,19 +422,21 @@ def encoder_handler(pin):
     """Handle rotary encoder rotation"""
     global voting_system
     if ENC_A.value():  # Clockwise
-        if voting_system.mode == MODE_SELECT:
-            voting_system.voter_id = min(voting_system.max_voters, voting_system.voter_id + 1)
+        if voting_system.mode == MODE_CATEGORY_SELECT:
+            max_options = len(CATEGORIES) + 1  # Categories plus SUBMIT option
+            voting_system.selected_category = (voting_system.selected_category + 1) % max_options
         elif voting_system.mode == MODE_VOTING:
             voting_system.selected_team = (voting_system.selected_team + 1) % len(TEAMS)
         elif voting_system.mode == MODE_RESULTS:
-            voting_system.current_category = (voting_system.current_category + 1) % len(CATEGORIES)
+            voting_system.selected_category = (voting_system.selected_category + 1) % len(CATEGORIES)  # Changed from current_category
     else:  # Counter-clockwise
-        if voting_system.mode == MODE_SELECT:
-            voting_system.voter_id = max(1, voting_system.voter_id - 1)
+        if voting_system.mode == MODE_CATEGORY_SELECT:
+            max_options = len(CATEGORIES) + 1
+            voting_system.selected_category = (voting_system.selected_category - 1) % max_options
         elif voting_system.mode == MODE_VOTING:
             voting_system.selected_team = (voting_system.selected_team - 1) % len(TEAMS)
         elif voting_system.mode == MODE_RESULTS:
-            voting_system.current_category = (voting_system.current_category - 1) % len(CATEGORIES)
+            voting_system.selected_category = (voting_system.selected_category - 1) % len(CATEGORIES)
     voting_system.needs_refresh = True
 
 # Initialize the voting system
@@ -347,54 +457,93 @@ while True:
         tag = voting_system.rfid.read_tag()
         if tag:
             print(f"Tag read: {tag}")  # For debugging
-            voting_system.mode = MODE_SELECT
+            voting_system.current_judge_id = tag
+            voting_system.mode = MODE_JUDGE_MENU
+            voting_system.load_in_progress_votes()
             voting_system.needs_refresh = True
     
-    # Main loop continued...
-
-    # Handle button inputs based on current mode
-    if time.ticks_diff(current_time, last_refresh) > 50:  # Basic debounce
-        if voting_system.mode == MODE_SELECT:
-            if not KEY_A.value() and voting_system.voter_id not in voting_system.voters:
-                voting_system.mode = MODE_VOTING
+    # Handle button inputs with debounce
+    if time.ticks_diff(current_time, last_refresh) > 50:
+        if voting_system.mode == MODE_JUDGE_MENU:
+            if not KEY_A.value() and voting_system.current_judge_id not in voting_system.completed_judges:
+                voting_system.mode = MODE_CATEGORY_SELECT
                 voting_system.needs_refresh = True
                 time.sleep(0.2)
                 
-            if not KEY_B.value() and any(voting_system.voters):
-                voting_system.mode = MODE_RESULTS
+            if not KEY_B.value():
+                if voting_system.current_judge_id in voting_system.completed_judges:
+                    voting_system.mode = MODE_RESULTS
+                else:
+                    voting_system.mode = MODE_WAITING
+                    voting_system.save_in_progress_votes()
+                voting_system.needs_refresh = True
+                time.sleep(0.2)
+                
+        elif voting_system.mode == MODE_CATEGORY_SELECT:
+            if not KEY_A.value():
+                if voting_system.selected_category < len(CATEGORIES):
+                    voting_system.mode = MODE_VOTING
+                else:  # SUBMIT option selected
+                    missing = voting_system.get_missing_categories()
+                    if not missing:
+                        voting_system.mode = MODE_CONFIRM_SUBMIT
+                    else:
+                        voting_system.display_missing_categories()
+                        time.sleep(2)  # Show the missing categories for 2 seconds
+                voting_system.needs_refresh = True
+                time.sleep(0.2)
+                
+            if not KEY_B.value():
+                voting_system.mode = MODE_JUDGE_MENU
+                voting_system.save_in_progress_votes()
                 voting_system.needs_refresh = True
                 time.sleep(0.2)
                 
         elif voting_system.mode == MODE_VOTING:
-            if not KEY_A.value():  # A button pressed
-                if voting_system.register_vote():
-                    voting_system.mode = MODE_THANK_YOU
+            if not KEY_A.value():
+                category = CATEGORIES[voting_system.selected_category]
+                team = TEAMS[voting_system.selected_team]
+                voting_system.temp_votes[category] = team
+                voting_system.mode = MODE_CATEGORY_SELECT
+                voting_system.save_in_progress_votes()
                 voting_system.needs_refresh = True
                 time.sleep(0.2)
                 
-            if not KEY_B.value():  # B button pressed
-                voting_system.mode = MODE_WAITING
-                voting_system.current_category = 0
-                voting_system.selected_team = 0
+            if not KEY_B.value():
+                voting_system.mode = MODE_CATEGORY_SELECT
                 voting_system.needs_refresh = True
-                voting_system.rfid.clear_tag()  # Clear the last tag so it can be read again
+                time.sleep(0.2)
+                
+        elif voting_system.mode == MODE_CONFIRM_SUBMIT:
+            if not KEY_A.value():
+                voting_system.submit_votes()
+                voting_system.mode = MODE_THANK_YOU
+                voting_system.needs_refresh = True
+                time.sleep(0.2)
+                
+            if not KEY_B.value():
+                voting_system.mode = MODE_CATEGORY_SELECT
+                voting_system.needs_refresh = True
                 time.sleep(0.2)
                 
         elif voting_system.mode == MODE_RESULTS:
-            if not KEY_B.value():  # B button pressed
+            if not KEY_B.value():
                 voting_system.mode = MODE_WAITING
                 voting_system.needs_refresh = True
-                voting_system.rfid.clear_tag()  # Clear the last tag so it can be read again
                 time.sleep(0.2)
     
-    # Update display only when needed and after minimum delay
+    # Update display when needed
     if voting_system.needs_refresh and time.ticks_diff(current_time, last_refresh) > REFRESH_DELAY:
         if voting_system.mode == MODE_WAITING:
             voting_system.display_waiting_rfid()
-        elif voting_system.mode == MODE_SELECT:
-            voting_system.display_voter_selection()
+        elif voting_system.mode == MODE_JUDGE_MENU:
+            voting_system.display_judge_menu()
+        elif voting_system.mode == MODE_CATEGORY_SELECT:
+            voting_system.display_category_select()
         elif voting_system.mode == MODE_VOTING:
             voting_system.display_voting_screen()
+        elif voting_system.mode == MODE_CONFIRM_SUBMIT:
+            voting_system.display_confirm_submit()
         elif voting_system.mode == MODE_RESULTS:
             voting_system.display_results()
         elif voting_system.mode == MODE_THANK_YOU:
@@ -403,4 +552,4 @@ while True:
         voting_system.needs_refresh = False
         last_refresh = current_time
     
-    time.sleep(0.01)  # Small delay to prevent busy-waiting
+    time.sleep(0.01)
